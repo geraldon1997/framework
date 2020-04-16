@@ -1,5 +1,9 @@
 <?php
 
-return [
-    'root' => 'App/Views'
-];
+    return [
+        'root' => [
+            'views' => 'App/Views/',
+            'templates' => 'App/Templates/',
+            'controllers' => 'App/Controllers/'
+        ]
+    ];
