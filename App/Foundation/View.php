@@ -18,6 +18,8 @@ class View
 
         if (file_exists($file)) {
             require_once $file;
+        } else {
+            echo "view [".$view."] was not found";
         }
     }
 }

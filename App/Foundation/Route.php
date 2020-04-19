@@ -15,7 +15,7 @@ class Route
 
     public static function get($path, $method)
     {
-        if ($path === $_SERVER['REQUEST_URI']) {
+        if ($path == $_SERVER['REQUEST_URI']) {
             if (!empty($method)) {
                 if (stripos($method, '@')) {
                     $function = explode('@', $method);

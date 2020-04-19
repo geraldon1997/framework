@@ -4,4 +4,4 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond $1 !^(App|robots\.txt)
 
-RewriteRule ^(.+)$ index.php/$1 [L]
+RewriteRule ^(.+)$ /index.php/$1 [L]
