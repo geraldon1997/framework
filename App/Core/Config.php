@@ -3,28 +3,39 @@ namespace App\Core;
 
 class Config
 {
-    public static $confFile;
-    public static $dataFile;
+    public static $file;
+    public static $data;
 
-    public static function loadConf($conf)
+    public static function loadConfig($file)
     {
-        $config = 'App/Config/'.$conf.'.php';
-        self::$confFile = require_once $config;
+        $configFile = 'App/Configs/'.$file.'.php';
+        if (file_exists($configFile)) {
+            self::$file = require_once $configFile;
+        } else {
+            echo 'config not found';
+        }
     }
 
-    public static function getConf($path)
+    public static function getFile($path)
     {
-        self::$dataFile = self::$confFile;
+        self::$data = self::$file;
 
-        $pathArray = explode('.', $path);
-
-        foreach ($pathArray as $key) {
-            if (isset(self::$dataFile[$key])) {
-                self::$dataFile = self::$dataFile[$key];
-            } else {
-                return 'path not found or incorrect';
+        if (strpos($path, '.')) {
+            $pathArray = explode('.', $path);
+            foreach ($pathArray as $key) {
+                if (isset(self::$data[$key])) {
+                    self::$data = self::$data[$key];
+                }
+            }
+        } else {
+            $pathArray = [$path];
+            foreach ($pathArray as $key) {
+                if (isset(self::$data[$key])) {
+                    self::$data = self::$data[$key];
+                }
             }
         }
-        return self::$dataFile;
+
+        return self::$data;
     }
 }
