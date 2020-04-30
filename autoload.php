@@ -7,7 +7,5 @@ function autoload($className)
 
     if (file_exists($class)) {
         require_once $class;
-    } else {
-        echo 'class not found';
     }
 }

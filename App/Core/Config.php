@@ -6,36 +6,34 @@ class Config
     public static $file;
     public static $data;
 
-    public static function loadConfig($file)
+    public static function loadConf($file)
     {
-        $configFile = 'App/Configs/'.$file.'.php';
-        if (file_exists($configFile)) {
-            self::$file = require_once $configFile;
-        } else {
-            echo 'config not found';
+        $fileName = 'App/Configs/'.$file.'.php';
+        if (file_exists($fileName)) {
+            self::$file = require_once $fileName;
         }
     }
 
-    public static function getFile($path)
+    public static function getConf($file, $conf)
     {
+        self::loadConf($file);
         self::$data = self::$file;
 
-        if (strpos($path, '.')) {
-            $pathArray = explode('.', $path);
-            foreach ($pathArray as $key) {
+        if (strpos($conf, '.')) {
+            $confArray = explode('.', $conf);
+            foreach ($confArray as $key) {
                 if (isset(self::$data[$key])) {
                     self::$data = self::$data[$key];
                 }
             }
         } else {
-            $pathArray = [$path];
-            foreach ($pathArray as $key) {
+            $confArray = [$conf];
+            foreach ($confArray as $key) {
                 if (isset(self::$data[$key])) {
                     self::$data = self::$data[$key];
                 }
             }
         }
-
         return self::$data;
     }
 }

@@ -4,11 +4,8 @@ return [
         'mysql' => [
             'host' => 'localhost',
             'user' => 'root',
-            'pass' => 'root',
-            'db' => 'framework'
-        ],
-        'mariadb' => [
-            //
+            'pass' => '',
+            'db' => 'test'
         ]
     ]
 ];

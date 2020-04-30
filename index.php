@@ -1,6 +1,8 @@
 <?php
 require_once 'autoload.php';
 
-use App\Core\Route;
+use App\Core\Config;
+use App\Core\DbConnection;
+use App\Models\Model;
 
-Route::get('/', 'UserController@index');
+new Model;
