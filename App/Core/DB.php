@@ -4,7 +4,7 @@ namespace App\Core;
 use mysqli;
 use App\Core\Config;
 
-class DbConnection
+class Db
 {
     public static $host;
     public static $user;
