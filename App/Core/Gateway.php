@@ -6,7 +6,7 @@ use App\Core\DB;
 class Gateway
 {
 
-    public static function create(string $sql)
+    public static function create($sql)
     {
         $create = DB::init()->query($sql);
         if ($create->affected_rows > 0) {
@@ -115,7 +115,7 @@ class Gateway
         }
     }
 
-    public static function update(string $table, string $set, string $col, string $val)
+    public static function update(string $table, $set, string $col, string $val)
     {
         $sql = "UPDATE $table SET $set WHERE $col = '$val'";
         $update = DB::init()->query($sql);
