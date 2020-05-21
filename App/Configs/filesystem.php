@@ -1,7 +1,7 @@
 <?php
 return [
     'view' => 'App/Views/',
-    'layout' => 'App/Layouts/',
+    'layout' => 'App/Views/Layouts/',
     'files' => [
         'images' => '',
         'videos' => '',
