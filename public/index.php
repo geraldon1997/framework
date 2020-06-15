@@ -1,5 +1,8 @@
 <?php
-echo "hello world<br>";
-echo $_SERVER['REQUEST_URI'].'<br>';
-echo $_GET['url'];
+
+use App\Controllers\Controller;
+
+require_once '../App/autoload.php';
+
+echo Controller::test();
     
