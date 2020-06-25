@@ -1,8 +1,4 @@
 <?php
+require_once '../App/bootstrap.php';
 
-use App\Controllers\Controller;
-
-require_once '../App/autoload.php';
-
-echo Controller::test();
-    
+echo $_SERVER['REQUEST_URI'];
