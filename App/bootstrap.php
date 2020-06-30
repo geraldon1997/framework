@@ -1,7 +1,7 @@
 <?php
 
-use App\Controllers\Controller;
+use App\Core\Route;
 
 require_once '../App/autoload.php';
 
-Controller::test();
+new Route;
