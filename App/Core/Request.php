@@ -22,4 +22,9 @@ class Request
     {
         return $_SERVER['REQUEST_SCHEME'];
     }
+
+    public static function type()
+    {
+        return $_SERVER['REQUEST_METHOD'];
+    }
 }

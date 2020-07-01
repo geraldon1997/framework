@@ -10,12 +10,14 @@ class Route
     public static $requestPath;
     public static $requestUrl;
     public static $requestFullUrl;
+    public static $requestType;
 
     public function __construct()
     {
         self::$requestPath = Request::path();
         self::$requestUrl = Request::url();
         self::$requestFullUrl = Request::fullUrl();
+        self::$requestType = Request::type();
     }
 
     public static function register(array $routesArray)
@@ -25,16 +27,18 @@ class Route
 
     public static function resolve()
     {
-        $pageCheck = array_key_exists(self::$requestPath, self::$routes);
-        if ($pageCheck) {
-            $action = self::$routes[self::$requestPath];
-            if (strpos($action, '@')) {
-                echo 'exists';
-            } else {
-                echo 'not exists';
+        $requestCheck = array_key_exists(self::$requestType, self::$routes);
+        $urlCheck = array_key_exists(self::$requestPath, self::$routes[self::$requestType]);
+        
+        if ($requestCheck) {
+            if ($urlCheck) {
+                $action = self::$routes[self::$requestType][self::$requestPath];
+                if (strpos($action, '@')) {
+                    echo 'exists';
+                } else {
+                    echo 'not exists';
+                }
             }
-        } else {
-            die('page not found');
         }
     }
 }
