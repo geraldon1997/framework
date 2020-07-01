@@ -6,6 +6,7 @@ use App\Core\Configuration;
 
 class Route
 {
+    public static $routes;
     public static $requestPath;
     public static $requestUrl;
     public static $requestFullUrl;
@@ -16,19 +17,24 @@ class Route
         self::$requestUrl = Request::url();
         self::$requestFullUrl = Request::fullUrl();
     }
-    public static function get(string $path, string $action)
+
+    public static function register(array $routesArray)
     {
-        if (self::$requestPath == $path) {
-            echo $action;
-        }
+        self::$routes = $routesArray;
     }
 
-    public static function view(string $path, string $view)
+    public static function resolve()
     {
-        if (self::$requestPath === $path) {
-            echo 'the paths matched';
-        } elseif (self::$requestPath != $path) {
-            echo 'paths dont match';
+        $pageCheck = array_key_exists(self::$requestPath, self::$routes);
+        if ($pageCheck) {
+            $action = self::$routes[self::$requestPath];
+            if (strpos($action, '@')) {
+                echo 'exists';
+            } else {
+                echo 'not exists';
+            }
+        } else {
+            die('page not found');
         }
     }
 }
