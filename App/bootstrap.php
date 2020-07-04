@@ -1,5 +1,6 @@
 <?php
 
+use App\Core\Request;
 use App\Core\Route;
 
 require_once '../App/autoload.php';
@@ -7,10 +8,9 @@ require_once '../App/autoload.php';
 new Route;
 
 Route::register([
-    'POST' => [
-        '/user/create' => 'createUser'
-    ],
+    'POST' => [],
     'GET' => [
-        '/' => 'home'
+        '/' => 'home',
+        '/about' => 'about the framework'
     ]
 ]);

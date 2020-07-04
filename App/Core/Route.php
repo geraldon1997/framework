@@ -27,18 +27,6 @@ class Route
 
     public static function resolve()
     {
-        $requestCheck = array_key_exists(self::$requestType, self::$routes);
-        $urlCheck = array_key_exists(self::$requestPath, self::$routes[self::$requestType]);
-        
-        if ($requestCheck) {
-            if ($urlCheck) {
-                $action = self::$routes[self::$requestType][self::$requestPath];
-                if (strpos($action, '@')) {
-                    echo 'exists';
-                } else {
-                    echo 'not exists';
-                }
-            }
-        }
+        echo self::$routes[self::$requestType][self::$requestPath];
     }
 }

@@ -5,7 +5,7 @@ class Request
 {
     public static function path()
     {
-        return $_SERVER['PATH_INFO'];
+        return rtrim($_SERVER['PATH_INFO'], '/');
     }
 
     public static function url()
