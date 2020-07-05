@@ -27,18 +27,18 @@ class Route
 
     public static function resolve()
     {
-        foreach (self::$routes as $key => $values) {
-            if (self::$requestType == $key) {
-                $path = array_key_exists(self::$requestPath, $values);
-                if ($path) {
-                    $action = $values[self::$requestPath];
-                    if (strpos($action, '@')) {
-                        echo 'method';
-                    } else {
-                        echo 'not method';
-                    }
-                }
+        $request = self::$routes[self::$requestType];
+        $pathCheck = array_key_exists(self::$requestPath, $request);
+        if ($pathCheck) {
+            $action = $request[self::$requestPath];
+            if (strpos($action, '@')) {
+                $actionArray = explode('@', $action);
+            } else {
+                echo "this is not a method <br>";
+                echo $action;
             }
+        } else {
+            echo 'page not found';
         }
     }
 }

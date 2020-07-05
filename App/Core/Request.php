@@ -5,7 +5,12 @@ class Request
 {
     public static function path()
     {
-        return rtrim($_SERVER['PATH_INFO'], '/');
+        $path = $_SERVER['PATH_INFO'];
+        if ($path == '/') {
+            return $path;
+        } else {
+            return rtrim($path, '/');
+        }
     }
 
     public static function url()
