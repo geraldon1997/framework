@@ -27,6 +27,18 @@ class Route
 
     public static function resolve()
     {
-        echo self::$routes[self::$requestType][self::$requestPath];
+        foreach (self::$routes as $key => $values) {
+            if (self::$requestType == $key) {
+                $path = array_key_exists(self::$requestPath, $values);
+                if ($path) {
+                    $action = $values[self::$requestPath];
+                    if (strpos($action, '@')) {
+                        echo 'method';
+                    } else {
+                        echo 'not method';
+                    }
+                }
+            }
+        }
     }
 }
