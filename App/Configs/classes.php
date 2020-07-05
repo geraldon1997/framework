@@ -1,4 +1,4 @@
 <?php
 return [
-    'controllers' => 'App/Controllers'
+    'controllers' => 'App/Controllers/'
 ];

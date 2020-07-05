@@ -27,15 +27,27 @@ class Route
 
     public static function resolve()
     {
+        Configuration::loadConfig('classes');
+        $controller = Configuration::getConfig('controllers');
         $request = self::$routes[self::$requestType];
         $pathCheck = array_key_exists(self::$requestPath, $request);
         if ($pathCheck) {
             $action = $request[self::$requestPath];
             if (strpos($action, '@')) {
                 $actionArray = explode('@', $action);
+                $class = str_replace('/', '\\', $controller.$actionArray[0]);
+                $method = $actionArray[1];
+                if (class_exists($class)) {
+                    if (method_exists($class, $method)) {
+                        call_user_func([$class, $method]); 
+                    } else {
+                        echo 'method not found';
+                    }
+                } else {
+                    echo 'class not found';
+                }
             } else {
-                echo "this is not a method <br>";
-                echo $action;
+                View::make($action);
             }
         } else {
             echo 'page not found';
