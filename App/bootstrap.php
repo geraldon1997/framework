@@ -9,8 +9,8 @@ new Route;
 
 Route::register([
     'GET' => [
-        '/' => 'test',
-        '/about' => 'about the framework',
+        '/' => 'welcome',
+        '/about' => 'about',
         '/users' => 'UserController@index'
     ],
     'POST' => [

@@ -29,8 +29,10 @@ class Route
     {
         Configuration::loadConfig('classes');
         $controller = Configuration::getConfig('controllers');
+
         $request = self::$routes[self::$requestType];
         $pathCheck = array_key_exists(self::$requestPath, $request);
+        
         if ($pathCheck) {
             $action = $request[self::$requestPath];
             if (strpos($action, '@')) {
