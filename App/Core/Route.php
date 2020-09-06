@@ -3,54 +3,29 @@ namespace App\Core;
 
 class Route
 {
-    public array $routes = [];
+    public static array $routes;
 
-    public Request $request;
-    public Response $response;
-    public View $view;
-
-    public function __construct()
+    public static function start()
     {
-        $this->request = new Request();
-        $this->response = new Response();
-        $this->view = new View();
+        $path = Request::path();
+        $method = Request::method();
+        $routes = self::$routes[$method];
+        return $routes[$path];
     }
 
-    public function get(string $path, string $callback)
+    public static function get($path, $callback)
     {
-        $this->routes['get'][$path] = $callback;
+        self::$routes['get'][$path] = $callback;
     }
 
-    public function post(string $path, string $callback)
+    public static function post($path, $callback)
     {
-        $this->routes['post'][$path] = $callback;
+        self::$routes['post'][$path] = $callback;
     }
 
-    public function resolve()
+    public static function view($path, $view)
     {
-        $path = $this->request->path();
-        $method = $this->request->method();
-        $callback = $this->routes[$method][$path] ?? false;
-
-        if ($callback === false) {
-            $this->response->setStatusCode(404);
-        //     return $this->view->render('_404');
-            return "not found";
-        }
-
-        if (strpos($callback, '@')) {
-            $action = explode('@', $callback);
-            $controller = 'App\\Controllers\\'.$action[0];
-            $function = $action[1];
-
-            $this->response->setStatusCode(200);
-
-            return call_user_func([new $controller, $function]);
-            
-        }
-    
-        $this->response->setStatusCode(200);
-        // return $this->view->render();
+        self::$routes['get'][$path] = $view;
     }
 
 }

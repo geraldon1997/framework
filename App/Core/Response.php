@@ -3,13 +3,8 @@ namespace App\Core;
 
 class Response
 {
-    public function setStatusCode(int $code)
+    public static function statusCode(int $code)
     {
         return http_response_code($code);
-    }
-
-    public function getStatusCode()
-    {
-        return http_response_code();
     }
 }

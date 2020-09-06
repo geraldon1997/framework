@@ -1,2 +1,9 @@
 <?php
-echo 'file found';
+
+use App\Core\Application;
+
+include_once 'autoload.php';
+
+Application::run();
+
+?>

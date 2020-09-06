@@ -3,64 +3,70 @@ namespace App\Core;
 
 class Request
 {
-    public $url;
-    public $http;
-    public $method;
-
-    public function __construct()
+    public static function method()
     {
-        $this->url = $_SERVER['REQUEST_URI'] ?? '/';
-        $this->http = $_SERVER['HTTP_HOST'];
-        $this->method = strtolower($_SERVER['REQUEST_METHOD']);
+        return strtolower($_SERVER['REQUEST_METHOD']);
     }
 
-    public function path()
+    public static function isGet()
     {
-        $position = strpos($this->url, '?');
-
-        if ($position === false) {
-            return $this->url;
+        if (self::method() === 'get') {
+            return true;
         }
+        return false;
+    }
 
-        $path = substr($this->url, 0, $position);
+    public static function isPost()
+    {
+        if (self::method() === 'post') {
+            return true;
+        }
+        return false;
+    }
+
+    public static function path()
+    {
+        $fullpath = $_SERVER['REQUEST_URI'];
+
+        $count = str_word_count($fullpath);
+
+        if ($count !== 0) {
+            $position = strpos($fullpath, '?');
+
+            if ($position) {
+                $path = substr($fullpath, 0, $position);
+                $path = rtrim($path, '/');
+                return $path;
+            }
+
+            $path = rtrim($fullpath, '/');
+            return $path;
+            
+        }
+        
+        $path = $fullpath;
         return $path;
     }
 
-    public function fullPath()
+    public static function fullPath()
     {
-        return $this->url;
-    }
-
-    public function url()
-    {
-        return $this->http;
-    }
-
-    public function fullUrl()
-    {
-        return $this->http.$this->url;
-    }
-
-    public function method()
-    {
-        return $this->method;
-    }
-
-    public function isGet()
-    {
-        if ($this->method === 'get') {
-            return $this->method;
+        $fullpath = $_SERVER['REQUEST_URI'];
+        $position = strpos($fullpath, '?');
+        if ($position) {
+            $path = $fullpath;
+            return $path;
         }
+
+        $path = rtrim($fullpath, '/');
+        return $path;
     }
 
-    public function isPost()
+    public static function url()
     {
-        if ($this->method === 'post') {
-            return $this->method;
-        }
+        //
     }
 
-    public function input()
+    public static function fullUrl()
     {
         //
     }
