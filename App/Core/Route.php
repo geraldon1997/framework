@@ -10,7 +10,29 @@ class Route
         $path = Request::path();
         $method = Request::method();
         $routes = self::$routes[$method];
-        return $routes[$path];
+        $checkpath = array_key_exists($path, $routes);
+        
+        if ($checkpath) {
+            $callback = $routes[$path];
+            
+            $delimiter = strpos($callback, '@');
+
+            if ($delimiter) {
+                $callback_array = explode('@', $callback);
+                $class = 'App\Controllers\\'.$callback_array[0];
+                
+                if (class_exists($class)) {
+                    return $class;
+                }
+
+                return 'controller class not found';
+                
+            }
+
+            return "<a href='/contact'>contact</a>";
+        }
+
+        return 'page not found';
     }
 
     public static function get($path, $callback)

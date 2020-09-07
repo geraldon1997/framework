@@ -63,11 +63,33 @@ class Request
 
     public static function url()
     {
-        //
+        $url = $_SERVER['HTTP_HOST'];
+        return $url;
     }
 
     public static function fullUrl()
     {
-        //
+        $fullurl = self::protocol().'://'.self::url().self::fullPath();
+        return $fullurl;
+    }
+
+    public static function protocol()
+    {
+        $protocol = $_SERVER['REQUEST_SCHEME'];
+        return $protocol;
+    }
+
+    public static function data()
+    {
+        $get = self::isGet();
+        $post = self::isPost();
+
+        if ($get) {
+            return $_GET;
+        }
+
+        if ($post) {
+            return $_POST;
+        }
     }
 }
